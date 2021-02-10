@@ -76,3 +76,75 @@ function almostIncreasingSequence(sequence) {
     return true;
 };
 
+// Task 8: Given a rectangular matrix of integers, where each value represents the cost of the room. Task is to return the total sum of all rooms, that are not under 0, on the same column.
+
+function matrixElementsSum(matrix) {
+    let sum = 0;
+    let isThereGhostInColumn = [];
+    
+    for (let i = 0; i < matrix.length; i++) {        
+        for (let j = 0; j < matrix[i].length; j++) {     
+            if (matrix[i][j] === 0) {
+                isThereGhostInColumn[j] = true;
+            };       
+            if (isThereGhostInColumn[j] !== true) {
+                sum += matrix[i][j];
+            };
+        };
+    };
+    return sum;
+};
+
+// Task 9: Given an array of strings, return another array containing all of its longest strings.
+
+function allLongestStrings(inputArray) {
+    let maxLength = 0;
+    let longArray = [];
+    for (let i = 0; i< inputArray.length; i++) {
+        if (inputArray[i].length > maxLength) {
+            maxLength = inputArray[i].length;
+        }; 
+    };
+    for (let i = 0; i< inputArray.length; i++) {
+        if (inputArray[i].length === maxLength) {
+            longArray.push(inputArray[i]);
+        };
+    };
+    return longArray;
+};
+
+// Task 10: Given two strings, find the number of common characters between them.
+
+function commonCharacterCount(s1, s2) {
+    let obj1 = {};
+    let obj2 = {};
+            
+    for (let i = 0; i< s1.length; i++) {
+        if (s1[i] in obj1) {
+            obj1[s1[i]] += 1;
+        } else {
+            obj1[s1[i]] = 1;
+        };
+        console.log(obj1);
+    };
+    
+    for (let i = 0; i< s2.length; i++) {
+        if (s2[i] in obj2) {
+            obj2[s2[i]] += 1;
+        } else {
+            obj2[s2[i]] = 1;
+        };
+        console.log(obj2);
+    };
+    
+    let sum = 0;
+    for (let prop in obj1) {
+        if (obj2[prop] !== undefined) {
+            sum += Math.min(obj1[prop], obj2[prop]);
+            console.log(obj1[prop],obj2[prop]);
+        };
+    };
+    return sum;
+};
+
+// Task 11: 
