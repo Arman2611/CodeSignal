@@ -147,4 +147,50 @@ function commonCharacterCount(s1, s2) {
     return sum;
 };
 
-// Task 11: 
+// Task 11: A number is considered lucky if the sum of the fisrt half of the digits is equal to the sum of the second half. Check if the given number is lucky.
+
+function isLucky(n) {
+    n = Array.from(n.toString());
+    if (n.length%1 === 0) {
+        let sum1 = 0;
+        let sum2 = 0;
+        for (let i = 0; i < n.length; i++) {
+            if (i < n.length / 2) {
+                sum1 += parseInt(n[i]);
+                console.log(sum1)
+            } else {
+                sum2 += parseInt(n[i]);
+                console.log(sum2)
+            }
+        }
+        return sum1 === sum2;
+    } else return false;
+};
+
+// Task 12: Given array of numbers. Task is to sort the array except for items that are (-1), they shall stay at the same index.
+
+function sortByHeight(a) {
+    let people = [];
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] === -1) {
+            continue;
+        } else {
+            people.push(a[i]);
+        }
+    }
+    people.sort(function(a, b) {
+        return a - b;
+    });
+    
+    let sortedArray = [];
+    let treesCount = 0;
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] === -1) {
+            sortedArray.push(-1);
+            treesCount++;
+        } else {
+            sortedArray.push(people[i - treesCount]);
+        }
+    };
+    return sortedArray;
+}
