@@ -194,3 +194,96 @@ function sortByHeight(a) {
     };
     return sortedArray;
 }
+
+// Task 13: Write a function that reverses characters in (possibly nested) parentheses in the input string.
+// My solution didnt pass 1 of the HIDDEN tests, so I dont know what is to be fixed
+
+function reverseInParentheses(inputString) {
+    inputString = inputString.split("");
+    console.log(inputString.join(''));
+
+    function reverse(str) {
+        str = str.slice(1,-1);
+        return str.reverse();
+    }
+
+    let startChar = inputString.lastIndexOf("(");
+    let endChar = inputString.indexOf(")", startChar);
+    console.log(startChar,endChar);
+    let target = inputString.slice(startChar,endChar + 1);
+    console.log(target.join(''));
+    
+    let changed = reverse(target);
+    console.log(changed);
+
+    inputString.splice(startChar,(endChar + 1 - startChar), ...changed);
+    inputString = inputString.join('');
+    console.log(inputString);
+
+    if((inputString.lastIndexOf("(") >= 0) && (inputString.indexOf(")") >= 0)) {
+        console.log('2round');
+        inputString = reverseInParentheses(inputString);
+    } else {
+        console.log('1round');
+        console.log('this is ' + inputString); 
+    }  
+    return inputString; 
+}
+// console.log(reverseInParentheses("foo(bar(baz))blim"))
+
+// Task 14: You are given an array of positive integers - the weights of the people. Return an array of two integers, where the first element is the total weight of team 1, and the second element is the total weight of team 2 after the division is complete.
+
+function alternatingSums(arr) {
+    let weights = [0,0]
+    for (let i = 0; i < arr.length; i++) {
+        if (i%2 === 0) {
+            weights[0] += arr[i];
+        } else {
+            weights[1] += arr[i];
+        }
+    };
+    return weights;
+}
+// Task 15: Given a rectangular matrix of characters, add a border of asterisks(*) to it.
+
+function addBorder(picture) {
+    let newMatrix = [];
+    newMatrix.length = picture.length + 2;
+    
+    let rowOfAsterisks = "*".repeat(picture[0].length + 2);    
+    newMatrix[0] = rowOfAsterisks;
+    newMatrix[newMatrix.length - 1] = rowOfAsterisks;
+    
+    for (let i = 0; i < picture.length; i++) {
+        newMatrix[i+1] = `*${picture[i]}*`
+    };
+    return newMatrix;
+}
+
+// Task 16: Two arrays are called similar if one can be obtained from another by swapping at most one pair of elements in one of the arrays. Given two arrays a and b, check whether they are similar.
+
+function areSimilar(a, b) {
+    let differences = 0;
+    let firstIndex = -1;
+    let secondIndex = -1;
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] === b[i]) {
+            continue
+        } else {    
+            differences += 1;   
+            if (firstIndex === -1) {
+                firstIndex = i;
+            } else {
+                secondIndex = i;
+            }
+            if (differences === 3) return false;
+        }
+    }
+    if (differences === 2) {
+                if (a[firstIndex] === b[secondIndex] && a[secondIndex] === b[firstIndex]) {
+                    return true;
+                } else return false;
+            }
+    if (differences === 1) return false;
+    if (differences === 0) return true;
+}
